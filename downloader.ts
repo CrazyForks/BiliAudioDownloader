@@ -84,6 +84,7 @@ interface FailedDownload {
 	error?: string;
 }
 
+
 interface SeasonMeta {
 	category: number;
 	cover: string;
@@ -130,8 +131,9 @@ log('Downloader module loaded');
 // ==================== 路径处理 (pkg 兼容) ====================
 // 检测是否在 pkg 打包环境中运行
 const isPkg = typeof (process as any).pkg !== 'undefined';
-// 如果是打包环境，使用可执行文件所在目录；否则使用 __dirname
-const baseDir = isPkg ? path.dirname(process.execPath) : __dirname;
+// 如果是打包环境，使用可执行文件所在目录；否则使用 cwd
+const cwd = process.cwd()
+const baseDir = isPkg ? path.dirname(process.execPath) : cwd;
 
 // ==================== Config (只保留配置相关的全局变量) ====================
 const config: Config = {
